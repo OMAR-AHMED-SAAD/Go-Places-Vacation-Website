@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <style>
         body {
@@ -7,17 +8,20 @@
             background-repeat: no-repeat;
             background-size: 100%;
         }
+
         h1 {
             color: white;
             text-align: center;
             -webkit-text-stroke: 1px blue;
         }
+
         .container1 {
             position: fixed;
             left: 50px;
             top: 150px;
             color: white;
         }
+
         .container2 {
             position: fixed;
             left: 300px;
@@ -27,6 +31,7 @@
             text-align: justify;
             text-justify: inter-word;
         }
+
         .video {
             position: fixed;
             left: 700px;
@@ -36,13 +41,26 @@
             text-align: justify;
             text-justify: inter-word;
         }
+
         .wanttogo {
             position: fixed;
             left: 30px;
             top: 470px;
         }
+
         #my {
             zoom: 110%;
+        }
+
+        .qualitycontrol {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            width: 80px;
+            height: 180px;
+            position: fixed;
+            left: 1200px;
+            top: 200px;
         }
     </style>
     <meta charset="UTF-8">
@@ -74,15 +92,48 @@
         <img id="image" src="/santorini.png" width="193" height="300">
     </div>
     <div class="container2">
-        With its stunning turquoise waters and picturesque villages, great activities including wine-tasting, authentic Greek cuisine, regular boat excursions due to its ideal location for island hopping, small Greek island of Santorini became so popular as a holiday destination.
+        With its stunning turquoise waters and picturesque villages, great activities including wine-tasting, authentic
+        Greek cuisine, regular boat excursions due to its ideal location for island hopping, small Greek island of
+        Santorini became so popular as a holiday destination.
     </div>
     <div class="wanttogo">
         <button id="wanttogo" class="btn btn-secondary ml-3">Add to Want-to-Go List</button>
     </div>
     <div class="video">
-        <video width="480" height="360" controls>
-            <source src="/santorini.mp4">
+        <video id="video" video width="480" height="360" controls preload="metadata"
+            src="https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/ecef84bc-3c9b-463b-b735-c6ff115bb51c.mp4">
+            Video not available at the moment.
         </video>
+        <br>
+        <div class="qualitycontrol">
+            <button id="240" class="btn btn-secondary ml-0" onclick="playvid(this)">240</button>
+            <button id="360" class="btn btn-secondary ml-0" onclick="playvid(this)">360</button>
+            <button id="720" class="btn btn-secondary ml-0" onclick="playvid(this)">720</button>
+            <button id="1080" class="btn btn-secondary ml-0" onclick="playvid(this)">FHD</button>
+        </div>
     </div>
+    <!--local scripting for quality buttons-->
+    <script>
+        // gets the video element
+        var video = document.getElementById("video");
+        function playvid(quality) {
+            var video_start_src = video.src;
+            var video_new_src = "";
+            // set the video element source to selected content and correct quality
+            if (quality.id == "240")
+                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/e10cccce-9b95-4135-afd6-ea7155a85aeb.mp4";
+            else if (quality.id == "360")
+                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/ecef84bc-3c9b-463b-b735-c6ff115bb51c.mp4";
+            else if (quality.id == "720")
+                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/9aa00e4b-824a-4b40-a460-484cece7d510.mp4";
+            else if (quality.id == "1080")
+                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/2e60406b-1dbd-4f00-bd85-00d1d120605d.mp4";
+            if (video_start_src != video_new_src) {
+                video.src = video_new_src;
+                video.play();
+            }
+        }
+    </script>
 </body>
+
 </html>

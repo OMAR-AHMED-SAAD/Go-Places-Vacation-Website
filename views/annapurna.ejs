@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <style>
         body {
@@ -7,17 +8,20 @@
             background-repeat: no-repeat;
             background-size: 100%;
         }
+
         h1 {
             color: white;
             text-align: center;
             -webkit-text-stroke: 1px blue;
         }
+
         .container1 {
             position: fixed;
             left: 50px;
             top: 150px;
             color: white;
         }
+
         .container2 {
             position: fixed;
             left: 300px;
@@ -27,6 +31,7 @@
             text-align: justify;
             text-justify: inter-word;
         }
+
         .video {
             position: fixed;
             left: 700px;
@@ -36,13 +41,26 @@
             text-align: justify;
             text-justify: inter-word;
         }
+
         .wanttogo {
             position: fixed;
             left: 30px;
             top: 470px;
         }
+
         #my {
             zoom: 110%;
+        }
+
+        .qualitycontrol {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            width: 80px;
+            height: 180px;
+            position: fixed;
+            left: 1200px;
+            top: 200px;
         }
     </style>
     <meta charset="UTF-8">
@@ -52,6 +70,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
         <a class="navbar-brand" style="color: rgb(191, 255, 161)">Annapurna Circuit</a>
@@ -73,15 +92,48 @@
         <img id="image" src="/annapurna.png" width="193" height="300">
     </div>
     <div class="container2">
-        Annapurna Circuit has been voted as the best long-distance trek in the world, as it combined a wide variety of climate zones from tropics at 600m above sea level to the arctic at 5416m above sea level at the Thorong La pass and cultural variety from Hindu villages at the low foothills to the Tibetan culture of Manang.
+        Annapurna Circuit has been voted as the best long-distance trek in the world, as it combined a wide variety of
+        climate zones from tropics at 600m above sea level to the arctic at 5416m above sea level at the Thorong La pass
+        and cultural variety from Hindu villages at the low foothills to the Tibetan culture of Manang.
     </div>
     <div class="wanttogo">
         <button id="wanttogo" class="btn btn-secondary ml-3">Add to Want-to-Go List</button>
     </div>
     <div class="video">
-        <video width="480" height="360" controls>
-            <source src="/annapurna.mp4">
+        <video id="video" video width="480" height="360" controls preload="metadata"
+            src="https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/d1373760-410c-4d93-b162-69d5068064ee.mp4">
+            Video not available at the moment.
         </video>
+        <br>
+        <div class="qualitycontrol">
+            <button id="240" class="btn btn-secondary ml-0" onclick="playvid(this)">240</button>
+            <button id="360" class="btn btn-secondary ml-0" onclick="playvid(this)">360</button>
+            <button id="720" class="btn btn-secondary ml-0" onclick="playvid(this)">720</button>
+            <button id="1080" class="btn btn-secondary ml-0" onclick="playvid(this)">FHD</button>
+        </div>
     </div>
+    <!--local scripting for quality buttons-->
+    <script>
+        // gets the video element
+        var video = document.getElementById("video");
+        function playvid(quality) {
+            var video_start_src = video.src;
+            var video_new_src = "";
+            // set the video element source to selected content and correct quality
+            if (quality.id == "240")
+                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/2b403f4c-f5eb-4a27-95e6-30f5515f8770.mp4";
+            else if (quality.id == "360")
+                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/d1373760-410c-4d93-b162-69d5068064ee.mp4";
+            else if (quality.id == "720")
+                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/a7d2ef13-69f2-47fe-ac92-e0a7d09adb17.mp4";
+            else if (quality.id == "1080")
+                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/185b7ef0-7e13-49a5-a598-3bc606d72c13.mp4";
+            if (video_start_src != video_new_src) {
+                video.src = video_new_src;
+                video.play();
+            }
+        }
+    </script>
 </body>
+
 </html>
