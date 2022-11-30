@@ -1,10 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Want-to-Go List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
+        .Site {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .Site-content {
+            min-height: 100vh;
+            flex: 1;
+        }
+
+        footer {
+            position: relative;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #343a40;
+            height: auto;
+            width: auto;
+            padding-top: 0px;
+            color: #fff;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .footer-content h3 {
+            font-size: 2.1rem;
+            font-weight: 500;
+            text-transform: capitalize;
+            line-height: 3rem;
+            margin-top: 10px;
+            margin-bottom: 0px;
+            color: rgb(59, 203, 11);
+        }
+
+        .footer-content p {
+            max-width: 500px;
+            margin: 10px auto;
+            line-height: 28px;
+            font-size: 14px;
+            color: #cacdd2;
+        }
+
+        .socials {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0 3rem 0;
+        }
+
+        .socials li {
+            margin: 0 10px;
+        }
+
+        .socials a {
+            text-decoration: none;
+            color: #fff;
+            border: 1.1px solid white;
+            padding: 5px;
+            border-radius: 50%;
+
+        }
+
+        .socials a i {
+            font-size: 1.1rem;
+            width: 20px;
+            transition: color .4s ease;
+        }
+
+        .socials a:hover i {
+            color: rgb(59, 203, 11);
+        }
+
+        .footer-bottom {
+            background: #1a1a1c;
+            width: auto;
+            padding: 20px;
+            padding-bottom: 40px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            float: left;
+            font-size: 14px;
+            word-spacing: 2px;
+            text-transform: capitalize;
+        }
+
+        .footer-bottom p a {
+            color: rgb(59, 203, 11);
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        .footer-bottom span {
+            text-transform: uppercase;
+            opacity: .4;
+            font-weight: 200;
+        }
+
         body {
             background-image: url("background3.jpg");
-            background-repeat: no-repeat;
+            background-repeat: repeat;
             background-size: 100%;
         }
 
@@ -13,16 +127,24 @@
             text-align: center;
             -webkit-text-stroke: 1px blue;
         }
+
+        .grid-container {
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .grid-container>div {
+            color: white;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+        }
     </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Want-to-Go List</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body>
+
+<body class="Site">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+        <a class="navbar-brand" href='home' style="font-size: 30px; color:rgb(59, 203, 11);">GO ₽L₳¢£$</a>
         <a class="navbar-brand" style="color: rgb(191, 255, 161)">Want-to-Go List</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,5 +160,84 @@
             </form>
         </div>
     </nav>
+    <main class="Site-content">
+        <div class="grid-container">
+            <% data2.forEach(element=> { %>
+                <% if (element.destination=="Inca Trail to Machu Picchu" ) { %>
+                    <div class="container">
+                        <img id="image" src="/inca.png" width="193" height="300">
+                        <br>
+                        <label id="label1" class="ml-4 my-2 labels">Inca Trail to Machu Picchu</label>
+                        <br>
+                        <button onclick="location.href = '/inca';" id="inca" class="btn btn-secondary ml-3 labels2">
+                            View
+                        </button>
+                    </div>
+                    <% } else if(element.destination=="Annapurna Circuit" ) { %>
+                        <div class="container">
+                            <img id="image" src="/annapurna.png" width="193" height="300">
+                            <br>
+                            <label id="label2" class="ml-4 my-2 labels">Annapurna Circuit</label>
+                            <br>
+                            <button onclick="location.href = '/annapurna';" id="annapurna"
+                                class="btn btn-secondary ml-3 labels2">View </button>
+                        </div>
+                        <% } else if(element.destination=="Paris" ) { %>
+                            <div class="container">
+                                <img id="image" src="/paris.png" width="193" height="300">
+                                <br>
+                                <label id="label1" class="ml-4 my-2 labels">Paris</label>
+                                <br>
+                                <button onclick="location.href = '/paris';" id="paris"
+                                    class="btn btn-secondary ml-3 labels2"> View </button>
+                            </div>
+                            <% } else if(element.destination=="Rome" ) { %>
+                                <div class="container">
+                                    <img id="image" src="/rome.png" width="193" height="300">
+                                    <br>
+                                    <label id="label2" class="ml-4 my-2 labels">Rome</label>
+                                    <br>
+                                    <button onclick="location.href = '/rome';" id="rome"
+                                        class="btn btn-secondary ml-3 labels2"> View </button>
+                                </div>
+                                <% } else if(element.destination=="Bali Island" ) { %>
+                                    <div class="container">
+                                        <img id="image" src="/bali.png" width="193" height="300">
+                                        <br>
+                                        <label id="label1" class="ml-4 my-2 labels">Bali Island</label>
+                                        <br>
+                                        <button onclick="location.href = '/bali';" id="bali"
+                                            class="btn btn-secondary ml-3 labels2"> View </button>
+                                    </div>
+                                    <% } else if(element.destination=="Santorini Island" ) { %>
+                                        <div class="container">
+                                            <img id="image" src="/santorini.png" width="193" height="300">
+                                            <br>
+                                            <label id="label2" class="ml-4 my-2 labels">Santorini Island</label>
+                                            <br>
+                                            <button onclick="location.href = '/santorini';" id="santorini"
+                                                class="btn btn-secondary ml-3 labels2"> View </button>
+                                        </div>
+                                        <% } %>
+                                            <% }) %>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <h3>GO ₽L₳¢£$</h3>
+            <p>Our mission in GO PLACES is to help you find your next travelling destination.
+            <ul class="socials">
+                <li><a href="https://instagram.com/go_places0?igshid=YmMyMTA2M2Y="><i class="fa fa-instagram"></i></a>
+                    Let's Share Our Happy Moments!</li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <p>copyright &copy; <a href="home">GO ₽L₳¢£$</a> </p>
+        </div>
+    </footer>
 </body>
+
+</html>
+</body>
+
 </html>
