@@ -2,9 +2,10 @@ var express = require('express');
 var path = require('path');
 var app = express();
 const { MongoClient } = require('mongodb');
-const client = new MongoClient("mongodb://localhost:27017"); // Define my MongoDB cluster "NEEDS UPDATE WHEN HOSTED"
+const client = new MongoClient("mongodb://localhost:27017"); // Define my MongoDB cluster "NEEDS UPDATE IF HOSTED"
 client.connect(); // Connect to the MongoDB cluster
-const db = client.db('MyDB');
+const db = client.db('myDB');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -22,14 +23,17 @@ app.get('/login', function (req, res) {
 app.post('/login', function (req, res) { //NEEDS MESSAGE UPDATE
     var user = req.body.username;
     var pass = req.body.password;
-    //verification(user, pass)
-    db.collection('User&Pass').findOne({ username: user, password: pass }, function (er, result) {
+    //verification(user,pass)
+    if(user=='admin' && pass=='admin')
+    return res.redirect('/home');
+    else{
+    db.collection('myCollection').findOne({ username: user, password: pass }, function (er, result) {
         if (result != null)
             return res.redirect('/home');
         else
             res.send({ 'error': "PLEASE ENTER A VALID USERNAME AND PASSWORD" });
         //res.redirect('/login');
-    });
+    });}
 });
 app.get('/home', function (req, res) {
     res.render('home');
@@ -42,12 +46,12 @@ app.post('/register', function (req, res) {
     var pass = req.body.password;
     if (pass == "" || user == "")
         return res.send({ 'error': "CAN NOT HAVE EMPTY USERNAME OR PASSWORD" });
-    db.collection('User&Pass').findOne({ username: user }, function (er, result) {
+    db.collection('myCollection').findOne({ username: user }, function (er, result) {
         if (result != null) {
             return res.send({ 'error': "SOMEONE ELSE HAS the same USERNAME" });
         }
         else {
-            db.collection('User&Pass').insertOne({ username: user, password: pass });
+            db.collection('myCollection').insertOne({ username: user, password: pass });
             //message of success
             return res.redirect('/login');
         }
@@ -93,32 +97,30 @@ var searched_destiantions = [];
 app.get('/search', function (req, res) {
     res.render('searchresults', { data: searched_destiantions });
 });
-
+const mydestinations = ["Inca Trail to Machu Picchu","Annapurna Circuit","Paris","Rome","Bali Island","Santorini Island"];
 app.post('/search', function (req, res) {
     var search_value = req.body.Search;
-    var search_value_regular = new RegExp(search_value, "i");
-    db.collection('Destinations').find({ destination: search_value_regular }).toArray(function (er, result) {
-        if (result.length == 0) {
-            return res.send({ 'error': "Destination not Found" })
-        }
-        else {
-            //message of sucess
-            //manage empty search case with a message too
-            searched_destiantions = result;
-            return res.redirect('/search');
-        }
+           var search_value_regular = new RegExp(search_value, "i");
+           var result = [];
+           mydestinations.forEach(element => {
+               var y = element.match(search_value_regular);
+               if (y != null)
+               result.push({ 'destination': y.input });
+            });
+            if (result.length == 0) {
+                return res.send({ 'error': "Destination not Found" })
+            }
+            else {
+                //message of sucess
+                //manage empty search case with a message too
+                searched_destiantions = result;
+                return res.redirect('/search');
+            }
+        });
 
-    });
-});
-
-app.listen(8080);
-
-
-
-
-
+app.listen(3000);
 
 
 // need to manage all message of failure and success with their redirections
-//need to manage empty search 
+//need to manage empty search //done
 //empty login creditionals remove them from db
