@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Destinations</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .Site {
@@ -119,7 +119,7 @@
         }
 
         body {
-            background: url("background3.jpg") no-repeat center center fixed; 
+            background: url("background3.jpg") no-repeat center center fixed;
             background-size: cover;
         }
 
@@ -164,6 +164,9 @@
             top: 370px;
         }
 
+        #logout {
+            float: right;
+        }
     </style>
 
 </head>
@@ -180,8 +183,8 @@
             <ul class="navbar-nav mr-auto">
             </ul>
             <form method="POST" action='/search' class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search"
-                    aria-label="Search"  required>
+                <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search" aria-label="Search"
+                    required>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
@@ -221,11 +224,14 @@
             <h3>GO ₽L₳¢£$</h3>
             <p>Our mission in GO PLACES is to help you find your next travelling destination.
             <ul class="socials">
-                <li><a href="https://instagram.com/go_places0?igshid=YmMyMTA2M2Y="><i class="fa fa-instagram"></i></a>  Let's Share Our Happy Moments!</li>
+                <li><a href="https://instagram.com/go_places0?igshid=YmMyMTA2M2Y="><i class="fa fa-instagram"></i></a>
+                    Let's Share Our Happy Moments!</li>
             </ul>
         </div>
         <div class="footer-bottom">
             <p>copyright &copy; <a href="home">GO ₽L₳¢£$</a> </p>
+            <button id='logout' onclick="location.href = '/logout';"
+                class="btn btn-outline-success my-2 my-sm-0">Logout</button>
         </div>
     </footer>
 </body>
