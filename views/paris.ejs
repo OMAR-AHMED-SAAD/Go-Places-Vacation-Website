@@ -164,17 +164,6 @@
         #my {
             zoom: 110%;
         }
-
-        .qualitycontrol {
-            position: absolute;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
-            width: 80px;
-            height: 180px;
-            left: 500px;
-            top: 80px;
-        }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -221,12 +210,6 @@
                 Video not available at the moment.
             </video>
             <br>
-            <div class="qualitycontrol">
-                <button id="240" class="btn btn-secondary ml-0" onclick="playvid(this)">240</button>
-                <button id="360" class="btn btn-secondary ml-0" onclick="playvid(this)">360</button>
-                <button id="720" class="btn btn-secondary ml-0" onclick="playvid(this)">720</button>
-                <button id="1080" class="btn btn-secondary ml-0" onclick="playvid(this)">FHD</button>
-            </div>
         </div>
     </main>
     <footer>
@@ -242,28 +225,6 @@
             <p>copyright &copy; <a href="home">GO ₽L₳¢£$</a> </p>
         </div>
     </footer>
-    <!--local scripting for quality buttons-->
-    <script>
-        // gets the video element
-        var video = document.getElementById("video");
-        function playvid(quality) {
-            var video_start_src = video.src;
-            var video_new_src = "";
-            // set the video element source to selected content and correct quality
-            if (quality.id == "240")
-                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/349b7d36-d6c7-491f-8d05-466d0bf76b7e.mp4";
-            else if (quality.id == "360")
-                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/02cb2080-5488-4c69-aa2e-84648140e790.mp4";
-            else if (quality.id == "720")
-                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/608cdae0-6bf6-42bb-b8dd-e13784ab367f.mp4";
-            else if (quality.id == "1080")
-                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/963d5337-d99d-4141-b6e0-12f7c6d3189d.mp4";
-            if (video_start_src != video_new_src) {
-                video.src = video_new_src;
-                video.play();
-            }
-        }
-    </script>
 </body>
 
 </html>

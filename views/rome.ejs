@@ -166,17 +166,6 @@
         #my {
             zoom: 110%;
         }
-
-        .qualitycontrol {
-            position: absolute;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
-            width: 80px;
-            height: 180px;
-            left: 500px;
-            top: 80px;
-        }
     </style>
 
 </head>
@@ -218,12 +207,6 @@
                 Video not available at the moment.
             </video>
             <br>
-            <div class="qualitycontrol">
-                <button id="240" class="btn btn-secondary ml-0" onclick="playvid(this)">240</button>
-                <button id="360" class="btn btn-secondary ml-0" onclick="playvid(this)">360</button>
-                <button id="720" class="btn btn-secondary ml-0" onclick="playvid(this)">720</button>
-                <button id="1080" class="btn btn-secondary ml-0" onclick="playvid(this)">FHD</button>
-            </div>
         </div>
     </main>
     <footer>
@@ -239,28 +222,6 @@
             <p>copyright &copy; <a href="home">GO ₽L₳¢£$</a> </p>
         </div>
     </footer>
-    <!--local scripting for quality buttons-->
-    <script>
-        // gets the video element
-        var video = document.getElementById("video");
-        function playvid(quality) {
-            var video_start_src = video.src;
-            var video_new_src = "";
-            // set the video element source to selected content and correct quality
-            if (quality.id == "240")
-                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/94202211-f5c8-48fe-96aa-0368a886f40b.mp4";
-            else if (quality.id == "360")
-                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/a2552d85-8e69-4eb0-9903-746022b5101a.mp4";
-            else if (quality.id == "720")
-                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/60497cf5-435e-43cd-9e90-d4d9e2f2f508.mp4";
-            else if (quality.id == "1080")
-                video_new_src = "https://vlogrplugin.s3.ap-northeast-2.amazonaws.com/7824a228-0773-4771-8d15-a2df022da7ee.mp4";
-            if (video_start_src != video_new_src) {
-                video.src = video_new_src;
-                video.play();
-            }
-        }
-    </script>
 </body>
 
 </html>
