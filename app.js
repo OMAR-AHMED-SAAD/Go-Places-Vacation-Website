@@ -12,7 +12,7 @@ app.use(session({
     secret: 'thisismysecretdonttellanyone!',
     resave: false,
     saveUninitialized: false,
-    cookie: { sameSite: 'strict'}
+    cookie: { sameSite: 'strict' }
 }));
 
 // view engine setup
@@ -29,124 +29,149 @@ app.get('/', function (req, res) {
     else
         res.redirect('/login');
 });
-app.get('/login', function (req, res) {
+var logfail = 0;
+app.get('/login', function (req, res) {/*******************************************************************************/
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
     if (req.session.authorized)
         res.redirect('/home');
-    else
-        res.render('login');
+    else {
+        res.render('login', { showmsg: logfail });
+        logfail = 0;
+    }
 });
-app.post('/login', function (req, res) { //NEEDS MESSAGE UPDATE
+
+app.post('/login', function (req, res) {
     var user = req.body.username;
     var pass = req.body.password;
     //verification(user,pass)
     if (user == 'admin' && pass == 'admin') {
         req.session.user = user;
         req.session.authorized = true;
-        return res.redirect('/home');
+        res.redirect('/home');
     }
     else {
         db.collection('myCollection').findOne({ username: user, password: pass }, function (er, result) {
             if (result != null) {
                 req.session.user = user;
                 req.session.authorized = true;
-                return res.redirect('/home');
+                res.redirect('/home');
             }
-            else
-                res.send({ 'error': "PLEASE ENTER A VALID USERNAME AND PASSWORD" });
-            //res.redirect('/login');
+            else {
+                logfail = 1;
+                res.redirect('/login');
+            }
         });
     }
 });
-app.get('/home', function (req, res) {
+app.get('/home', function (req, res) { /*******************************************************************************/
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
     if (req.session.authorized)
         res.render('home');
     else
-        res.redirect('/');
+        res.redirect('/login');
 });
+var resgisterfail = 0;
 app.get('/registration', function (req, res) {
     if (req.session.authorized)
         res.redirect('/home');
-    else
-        res.render('registration');
+    else {
+        res.render('registration', { showmsg: resgisterfail });
+        resgisterfail = 0;
+    }
 });
 app.post('/register', function (req, res) {
     var user = req.body.username;
     var pass = req.body.password;
-    if (pass == "" || user == "")
-        return res.send({ 'error': "CAN NOT HAVE EMPTY USERNAME OR PASSWORD" });
-    db.collection('myCollection').findOne({ username: user }, function (er, result) {
-        if (result != null) {
-            return res.send({ 'error': "SOMEONE ELSE HAS the same USERNAME" });
-        }
-        else {
-            db.collection('myCollection').insertOne({ username: user, password: pass });
-            //message of success
-            return res.redirect('/');
-        }
-    });
+    if (pass == "" || user == "") {
+        resgisterfail = 1;
+        res.redirect('/registration');
+    }
+    else {
+        db.collection('myCollection').findOne({ username: user }, function (er, result) {
+            if (result != null) {
+                resgisterfail = 2;
+                res.redirect('/registration');
+            }
+            else {
+                logfail = 2;
+                db.collection('myCollection').insertOne({ username: user, password: pass, wanttogolist: [] });
+                res.redirect('/login');
+            }
+        });
+    }
 
 });
 app.get('/hiking', function (req, res) {
     if (req.session.authorized)
         res.render('hiking');
     else
-        return res.redirect('/');
+        res.redirect('/login');
 
 });
 app.get('/cities', function (req, res) {
     if (req.session.authorized)
         res.render('cities');
     else
-        return res.redirect('/');
+        res.redirect('/login');;
 });
 app.get('/islands', function (req, res) {
     if (req.session.authorized)
         res.render('islands');
     else
-        return res.redirect('/');
+        res.redirect('/login');;
 });
+var wanttogodestiantions = [];
 app.get('/wanttogo', function (req, res) {
-    if (req.session.authorized)
-        res.render('wanttogo');
+    if (req.session.authorized) {
+        var user = req.session.user;
+        db.collection('myCollection').findOne({ username: user }, function (er, result) {
+            wanttogodestiantions = result.wanttogolist;
+            res.render('wanttogo', { data: wanttogodestiantions });
+        });
+    }
     else
-        return res.redirect('/');
+        res.redirect('/login');;
 });
 
 app.get('/inca', function (req, res) {
     if (req.session.authorized)
         res.render('inca');
     else
-        return res.redirect('/');
+        res.redirect('/login');;
 });
 app.get('/annapurna', function (req, res) {
     if (req.session.authorized)
         res.render('annapurna');
     else
-        return res.redirect('/');
+        res.redirect('/login');;
 });
 app.get('/paris', function (req, res) {
     if (req.session.authorized)
         res.render('paris');
     else
-        return res.redirect('/');
+        res.redirect('/login');;
 });
 app.get('/rome', function (req, res) {
     if (req.session.authorized)
         res.render('rome');
     else
-        return res.redirect('/');
+        res.redirect('/login');;
 });
 app.get('/bali', function (req, res) {
     if (req.session.authorized)
         res.render('bali');
     else
-        return res.redirect('/');
+        res.redirect('/login');;
 });
 app.get('/santorini', function (req, res) {
     if (req.session.authorized)
         res.render('santorini');
     else
-        return res.redirect('/');
+        res.redirect('/login');;
 });
 
 var searched_destiantions = [];
@@ -154,7 +179,7 @@ app.get('/search', function (req, res) {
     if (req.session.authorized)
         res.render('searchresults', { data: searched_destiantions });
     else
-        return res.redirect('/');
+        res.redirect('/login');;
 });
 const mydestinations = ["Inca Trail to Machu Picchu", "Annapurna Circuit", "Paris", "Rome", "Bali Island", "Santorini Island"];
 app.post('/search', function (req, res) {
@@ -166,25 +191,31 @@ app.post('/search', function (req, res) {
         if (y != null)
             result.push({ 'destination': y.input });
     });
-    if (result.length == 0) {
-        return res.send({ 'error': "Destination not Found" })
-    }
-    else {
-        //message of sucess
-        //manage empty search case with a message too
-        searched_destiantions = result;
-        return res.redirect('/search');
-    }
+    searched_destiantions = result;
+    res.redirect('/search');
+
 });
-app.get('/logout',function(req,res){
+app.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect('/login');
 });
 
+app.post('/addwanttogo', function (req, res) {
+    var destination = req.body.destination;
+    var user = req.session.user;
+    db.collection('myCollection').findOne({ username: user }, function (er, result) {
+        var flag = 1;
+        result.wanttogolist.forEach(element => {
+            if (element == destination)
+                flag = 0;
+        });
+        if (flag == 0)
+            res.send('0');
+        else {
+            res.send('1');
+            db.collection('myCollection').updateOne({ username: user }, { $push: { wanttogolist: destination } });
+        }
+    });
+})
+
 app.listen(3000);
-
-
-// need to manage all message of failure and success with their redirections
-//logout button(done)
-//need to manage empty search //done
-//empty login creditionals remove them from db(done)

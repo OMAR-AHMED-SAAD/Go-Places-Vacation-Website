@@ -120,7 +120,7 @@
         }
 
         body {
-            background: url("background3.jpg") no-repeat center center fixed; 
+            background: url("background3.jpg") no-repeat center center fixed;
             background-size: cover;
         }
 
@@ -151,10 +151,7 @@
             position: absolute;
             left: 700px;
             top: 150px;
-            color: white;
             width: 300px;
-            text-align: justify;
-            text-justify: inter-word;
         }
 
         .wanttogo {
@@ -165,6 +162,31 @@
 
         #my {
             zoom: 110%;
+        }
+
+        .alert {
+            margin-left: 30%;
+            color: white;
+            opacity: 1;
+            transition: opacity 0.6s;
+            width: 40%;
+            text-align: center;
+            display: none;
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
         }
     </style>
 
@@ -182,13 +204,17 @@
             <ul class="navbar-nav mr-auto">
             </ul>
             <form method="POST" action='/search' class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search"
-                    aria-label="Search" required>
+                <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search" aria-label="Search"
+                    required>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
     </nav>
     <main class="Site-content">
+        <div id='wanttogoalert' ; class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong id="msg"></strong>
+        </div>
         <div class="container1">
             <img id="image" src="/rome.png" width="193" height="300">
         </div>
@@ -199,7 +225,7 @@
             panoramic views, and the majesty of its magnificent villas.
         </div>
         <div class="wanttogo">
-            <button id="wanttogo" class="btn btn-secondary ml-3">Add to Want-to-Go List</button>
+            <button id="wanttogo" class="btn btn-secondary ml-3" onclick="ajaxPOST()">Add to Want-to-Go List</button>
         </div>
         <div class="video">
             <video id="video" video width="480" height="360" controls preload="metadata"
@@ -222,6 +248,35 @@
             <p>copyright &copy; <a href="home">GO ₽L₳¢£$</a> </p>
         </div>
     </footer>
+    <script>
+        var msg = document.getElementById('wanttogoalert');
+        function showmsg(x) {
+            if (x == '1') {
+                document.getElementById("msg").innerHTML = "Destination added successfully!";
+                msg.style.backgroundColor = 'rgb(59, 203, 11)';
+                msg.style.display = 'block';
+            }
+            else {
+                msg.style.display = 'none';
+                document.getElementById("msg").innerHTML = "Destination already added!";
+                msg.style.backgroundColor = '#de2315';
+                msg.style.display = 'block';
+            }
+
+        }
+        // (A) POST WITH AJAX
+        function ajaxPOST() {
+            var data = JSON.stringify({ destination: 'Rome' });
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/addwanttogo", true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.send(data);
+            xhr.onload = function () {
+                //console.log(this.response);
+                showmsg(this.response);
+            };
+        }
+    </script>
 </body>
 
 </html>

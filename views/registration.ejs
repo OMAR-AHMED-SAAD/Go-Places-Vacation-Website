@@ -23,6 +23,46 @@
             color: white;
             text-align: center;
         }
+
+        #simple_click {
+            transition: background .5s;
+            color: #f0f0f0;
+            margin-block: 10px 10px;
+            writing-mode: horizontal-tb;
+        }
+
+        #submit {
+            transition: background .5s;
+            background: #09a363;
+            color: #f0f0f0;
+            margin-block: 10px 20px;
+            writing-mode: horizontal-tb;
+        }
+
+        .alert {
+            margin-left: 30%;
+            color: white;
+            opacity: 1;
+            transition: opacity 0.6s;
+            width: 40%;
+            text-align: center;
+            display: none;
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
+        }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +84,31 @@
             <input type="password" id="password" name="password"> <br> <br>
             <input type="submit" id="simple_click" class="btn btn-secondary" value="Register"> <br>
         </form>
+        <button id="submit" onclick="location.href = '/login';" class="btn btn-secondary">Go back to Login </button>
     </div>
+    <div id='loginalert' class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong id="msg"></strong>
+    </div>
+    <% if (showmsg==0) { %>
+        <script>
+            document.getElementById('loginalert').style.display = 'none';
+        </script>
+        <% } else if (showmsg==1) { %>
+            <script>
+                document.getElementById("msg").innerHTML = "Empty username or password is not accepted!";
+                document.getElementById('simple_click').style.backgroundColor = 'rgb(207, 4, 4)';
+                document.getElementById('loginalert').style.backgroundColor = 'rgb(207, 4, 4)';
+                document.getElementById('loginalert').style.display = 'block';
+            </script>
+            <% } else if(showmsg==2) { %>
+                <script>
+                    document.getElementById("msg").innerHTML = "Username already taken, Try another one!";
+                    document.getElementById('simple_click').style.backgroundColor = 'rgb(207, 4, 4)';
+                    document.getElementById('loginalert').style.backgroundColor = 'rgb(207, 4, 4)';
+                    document.getElementById('loginalert').style.display = 'block';
+                </script>
+                <% } %>
 </body>
 
 </html>

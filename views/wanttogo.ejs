@@ -8,6 +8,7 @@
     <title>Want-to-Go List</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .Site {
             display: flex;
@@ -154,16 +155,16 @@
             <ul class="navbar-nav mr-auto">
             </ul>
             <form method="POST" action='/search' class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search"
-                    aria-label="Search" required>
+                <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search" aria-label="Search"
+                    required>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
     </nav>
     <main class="Site-content">
         <div class="grid-container">
-            <% data2.forEach(element=> { %>
-                <% if (element.destination=="Inca Trail to Machu Picchu" ) { %>
+            <% data.forEach(element=> { %>
+                <% if (element=="Inca Trail to Machu Picchu" ) { %>
                     <div class="container">
                         <img id="image" src="/inca.png" width="193" height="300">
                         <br>
@@ -173,7 +174,7 @@
                             View
                         </button>
                     </div>
-                    <% } else if(element.destination=="Annapurna Circuit" ) { %>
+                    <% } else if(element=="Annapurna Circuit" ) { %>
                         <div class="container">
                             <img id="image" src="/annapurna.png" width="193" height="300">
                             <br>
@@ -182,7 +183,7 @@
                             <button onclick="location.href = '/annapurna';" id="annapurna"
                                 class="btn btn-secondary ml-3 labels2">View </button>
                         </div>
-                        <% } else if(element.destination=="Paris" ) { %>
+                        <% } else if(element=="Paris" ) { %>
                             <div class="container">
                                 <img id="image" src="/paris.png" width="193" height="300">
                                 <br>
@@ -191,7 +192,7 @@
                                 <button onclick="location.href = '/paris';" id="paris"
                                     class="btn btn-secondary ml-3 labels2"> View </button>
                             </div>
-                            <% } else if(element.destination=="Rome" ) { %>
+                            <% } else if(element=="Rome" ) { %>
                                 <div class="container">
                                     <img id="image" src="/rome.png" width="193" height="300">
                                     <br>
@@ -200,7 +201,7 @@
                                     <button onclick="location.href = '/rome';" id="rome"
                                         class="btn btn-secondary ml-3 labels2"> View </button>
                                 </div>
-                                <% } else if(element.destination=="Bali Island" ) { %>
+                                <% } else if(element=="Bali Island" ) { %>
                                     <div class="container">
                                         <img id="image" src="/bali.png" width="193" height="300">
                                         <br>
@@ -209,7 +210,7 @@
                                         <button onclick="location.href = '/bali';" id="bali"
                                             class="btn btn-secondary ml-3 labels2"> View </button>
                                     </div>
-                                    <% } else if(element.destination=="Santorini Island" ) { %>
+                                    <% } else if(element=="Santorini Island" ) { %>
                                         <div class="container">
                                             <img id="image" src="/santorini.png" width="193" height="300">
                                             <br>

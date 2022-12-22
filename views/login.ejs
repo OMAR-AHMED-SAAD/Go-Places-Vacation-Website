@@ -11,7 +11,7 @@
 
     <style>
         body {
-            background: url("background1.jpg") no-repeat center center fixed; 
+            background: url("background1.jpg") no-repeat center center fixed;
             background-size: cover;
         }
 
@@ -30,6 +30,37 @@
             color: white;
             text-align: center;
         }
+
+        #submit {
+            transition: background .5s;
+            background: #09a363;
+            color: #f0f0f0;
+        }
+
+        .alert {
+            margin-left: 30%;
+            color: white;
+            opacity: 1;
+            transition: opacity 0.6s;
+            width: 40%;
+            text-align: center;
+            display: none;
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
+        }
     </style>
 </head>
 
@@ -45,12 +76,40 @@
             Password:<br>
             <input type="password" name="password">
             <br><br>
-            <input type="submit" value="Login">
+            <input type="submit" value="Login" id="submit" class="btn btn-secondary">
         </form>
         <br>
         <p style="text-align: center; color:black ;font-size: large;">Don't Have an account ?</p>
-        <a href="registration" "><p style="text-align: center; color:black ;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size: x-large;">Register Now!</p></a>
+        <a href="registration">
+            <p style=" text-align: center; color:black ;font-family: 'Lucida Sans'
+            , 'Lucida Sans Regular' , 'Lucida Grande' , 'Lucida Sans Unicode' , Geneva, Verdana, sans-serif;font-size:
+            x-large;">Register Now!</p>
+        </a>
     </div>
+    <div id='loginalert' class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong id="msg"></strong>
+    </div>
+    <% if (showmsg==0) { %>
+        <script>
+            document.getElementById('loginalert').style.display = 'none';
+        </script>
+        <% } else if (showmsg==1) { %>
+            <script>
+                document.getElementById("msg").innerHTML = "Invalid username or password! Try again!";
+                document.getElementById('submit').style.backgroundColor = 'rgb(207, 4, 4)';
+                document.getElementById('loginalert').style.backgroundColor = 'rgb(207, 4, 4)';
+                document.getElementById('loginalert').style.display = 'block';
+            </script>
+            <% } else if(showmsg==2) { %>
+                <script>
+                    document.getElementById("msg").innerHTML = "Account registered successfully! You can now login.";
+                    document.getElementById('loginalert').style.backgroundColor = '#09a363';
+                    document.getElementById('loginalert').style.display = 'block';
+                </script>
+                <% } %>
+
+
 </body>
 
 </html>
