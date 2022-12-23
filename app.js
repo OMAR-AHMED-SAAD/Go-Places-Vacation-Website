@@ -5,9 +5,14 @@ const { MongoClient } = require('mongodb');
 const client = new MongoClient("mongodb://localhost:27017"); // Define my MongoDB cluster "NEEDS UPDATE IF HOSTED"
 client.connect(); // Connect to the MongoDB cluster
 const db = client.db('myDB');
-
 const session = require('express-session');
+const PORT = process.env.PORT || 3000;
 
+// your code
+
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
+});
 app.use(session({
     secret: 'thisismysecretdonttellanyone!',
     resave: false,
@@ -218,4 +223,4 @@ app.post('/addwanttogo', function (req, res) {
     });
 })
 
-app.listen(3000);
+//app.listen(3000);
