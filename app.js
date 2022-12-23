@@ -8,8 +8,6 @@ const db = client.db('myDB');
 const session = require('express-session');
 const PORT = process.env.PORT || 3000;
 
-// your code
-
 app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
 });
